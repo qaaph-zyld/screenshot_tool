@@ -27,7 +27,7 @@ pip install Pillow
 python screenshot_widget.py
 ```
 
-A small window with a green **+1** button appears. Click it (or press Enter/Space) to:
+A small window with a green **+1** button appears. Click it, or press the `` ` `` key then `1` quickly (as a chord) to:
 1. Hide the widget
 2. Capture fullscreen
 3. Copy to clipboard

@@ -58,12 +58,32 @@ class ScreenshotWidget:
         self.button.pack(expand=True, fill="both", padx=2, pady=2)
 
         # Bind keyboard shortcuts
-        self.root.bind("<Return>", lambda e: self.on_click())
-        self.root.bind("<space>", lambda e: self.on_click())
-        self.root.bind("<Escape>", lambda e: self.root.quit())
+        self.chord_keys = {"`", "1"}
+        self.last_key = None
+        self.last_time = 0.0
+        self.chord_window = 0.4
+        self.root.bind("<Key>", self._on_key)
 
         # Platform detection
         self.platform = platform.system().lower()
+
+    def _on_key(self, event) -> None:
+        ch = event.char
+        now = time.time()
+        if ch in self.chord_keys:
+            if (
+                self.last_key
+                and self.last_key != ch
+                and now - self.last_time <= self.chord_window
+            ):
+                self.last_key = None
+                self.last_time = 0.0
+                self.on_click()
+            else:
+                self.last_key = ch
+                self.last_time = now
+        elif event.keysym == "Escape":
+            self.root.quit()
 
     def on_click(self) -> None:
         """Handle button click - hide window, capture screenshot, show window."""
