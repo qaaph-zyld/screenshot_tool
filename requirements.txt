@@ -1,0 +1,5 @@
+# Core dependencies for screenshot_widget.py on Windows
+Pillow>=9.0.0
+
+# Optional: Better clipboard handling on Windows
+# pywin32>=300

@@ -1,20 +1,56 @@
 # Screenshot on Ctrl+1 – Screenshot Automation Tool
 
-Production-ready screenshot automation for Linux desktops using **Flameshot** and **xclip**, wired to a single hotkey (e.g. `Ctrl+1`).
+Production-ready screenshot automation for **Windows** and **Linux** desktops.
 
 - **One-key screenshot**: Fullscreen capture → clipboard
+- **GUI Widget**: Always-on-top `+1` button (cross-platform)
+- **CLI automation**: Headless script for hotkey integration (Linux)
 - **Multi-distro**: Debian/Ubuntu, Fedora, Arch (or manual)
 - **Robust**: Dependency checks, timeouts, logging, cleanup, basic locking
 
 This repo provides:
-- `screenshot_clipboard.py` – Python orchestration script
-- `install_screenshot_automation.sh` – installer that deploys the script to `/usr/local/bin/screenshot-automate`
+- `screenshot_widget.py` – **GUI widget** with always-on-top `+1` button (Windows & Linux)
+- `screenshot_clipboard.py` – CLI orchestration script (Linux)
+- `install_screenshot_automation.sh` – installer that deploys the CLI script to `/usr/local/bin/screenshot-automate`
+
+---
+
+## Quick Start: GUI Widget (Windows & Linux)
+
+The easiest way to use this tool is the **always-on-top widget**:
+
+```bash
+# Install dependency (Windows)
+pip install Pillow
+
+# Run the widget
+python screenshot_widget.py
+```
+
+A small window with a green **+1** button appears. Click it (or press Enter/Space) to:
+1. Hide the widget
+2. Capture fullscreen
+3. Copy to clipboard
+4. Show the widget again (button flashes ✓ on success)
+
+Press **Esc** to close the widget.
+
+**Screenshots are saved to:** `~/Pictures/Screenshots/`
 
 ---
 
 ## 1. Requirements
 
-- Linux desktop (X11-based)
+### For GUI Widget (Windows)
+- Python 3.8+
+- **Pillow** (`pip install Pillow`)
+
+### For GUI Widget (Linux)
+- Python 3.8+
+- **Flameshot** (`sudo apt install flameshot`)
+- Tkinter (usually included with Python)
+
+### For CLI Script (Linux only)
 - **Flameshot** (screenshot engine)
 - **xclip** (clipboard integration, optional but recommended)
 - **Python 3**
@@ -26,7 +62,7 @@ The installer will try to install missing packages on:
 
 ---
 
-## 2. One-Command Installation
+## 2. One-Command Installation (Linux CLI)
 
 On your Linux machine, run:
 
@@ -218,13 +254,15 @@ See `~/.screenshot_automation.log` for details in failure cases.
 
 ## 9. Features Implemented
 
+- ✅ **GUI Widget** – Always-on-top `+1` button (Windows & Linux)
 - ✅ One-key screenshot capture (e.g. `Ctrl+1`)
 - ✅ Automatic clipboard copy
+- ✅ Cross-platform support (Windows via Pillow, Linux via Flameshot)
 - ✅ Multi-distro support in installer (Ubuntu/Fedora/Arch)
 - ✅ Automated installation to `/usr/local/bin`
 - ✅ Error logging and recovery
-- ✅ Auto-cleanup of old screenshots
+- ✅ Auto-cleanup of old screenshots (Linux CLI)
 - ✅ Dependency verification
 - ✅ Desktop environment detection (for logging/diagnostics)
 
-Press **Ctrl+1** and your screenshot is instantly placed on the clipboard.
+**Click the `+1` button** or **press Ctrl+1** and your screenshot is instantly on the clipboard!
