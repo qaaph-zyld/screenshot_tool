@@ -57,6 +57,11 @@ class ScreenshotWidget:
         )
         self.button.pack(expand=True, fill="both", padx=2, pady=2)
 
+        # Ensure the widget starts focused so shortcuts work immediately
+        self.root.lift()
+        self.root.focus_force()
+        self.button.focus_set()
+
         # Bind keyboard shortcuts
         self.chord_keys = {"`", "1"}
         self.last_key = None
@@ -112,6 +117,10 @@ class ScreenshotWidget:
     def _restore_widget(self, success: bool, error: Optional[str] = None) -> None:
         """Restore widget after capture."""
         self.root.deiconify()
+        self.root.lift()
+        self.root.attributes("-topmost", True)
+        self.root.focus_force()
+        self.button.focus_set()
         self.button.config(state="normal", text="+1")
 
         if success:
