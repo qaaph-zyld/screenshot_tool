@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Always-on-top screenshot widget with a '+1' button.
-Click the button (or press Enter/Space while focused) to capture a screenshot.
+Click the button, or press Ctrl+` while the widget is focused, to capture a screenshot.
 Works on Windows and Linux.
 """
 
@@ -62,33 +62,26 @@ class ScreenshotWidget:
         self.root.focus_force()
         self.button.focus_set()
 
-        # Bind keyboard shortcuts
-        self.chord_keys = {"`", "1"}
-        self.last_key = None
-        self.last_time = 0.0
-        self.chord_window = 0.4
+        # Bind keyboard shortcut: Ctrl+` while widget is focused
         self.root.bind("<Key>", self._on_key)
 
         # Platform detection
         self.platform = platform.system().lower()
 
     def _on_key(self, event) -> None:
-        ch = event.char
-        now = time.time()
-        if ch in self.chord_keys:
-            if (
-                self.last_key
-                and self.last_key != ch
-                and now - self.last_time <= self.chord_window
-            ):
-                self.last_key = None
-                self.last_time = 0.0
-                self.on_click()
-            else:
-                self.last_key = ch
-                self.last_time = now
-        elif event.keysym == "Escape":
+        # Close widget with Escape
+        if event.keysym == "Escape":
             self.root.quit()
+            return
+
+        # On most Tk builds, Control is bit 0x4 in event.state
+        try:
+            ctrl_down = bool(event.state & 0x4)
+        except Exception:
+            ctrl_down = False
+
+        if ctrl_down and event.char == "`":
+            self.on_click()
 
     def on_click(self) -> None:
         """Handle button click - hide window, capture screenshot, show window."""

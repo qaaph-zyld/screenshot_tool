@@ -10,6 +10,7 @@ Production-ready screenshot automation for **Windows** and **Linux** desktops.
 
 This repo provides:
 - `screenshot_widget.py` – **GUI widget** with always-on-top `+1` button (Windows & Linux)
+- `screenshot_hotkey_global.py` – **Windows global hotkey** (Ctrl+`) for fullscreen screenshot → clipboard
 - `screenshot_clipboard.py` – CLI orchestration script (Linux)
 - `install_screenshot_automation.sh` – installer that deploys the CLI script to `/usr/local/bin/screenshot-automate`
 
@@ -20,14 +21,14 @@ This repo provides:
 The easiest way to use this tool is the **always-on-top widget**:
 
 ```bash
-# Install dependency (Windows)
-pip install Pillow
+# Install dependencies (Windows)
+pip install Pillow keyboard
 
 # Run the widget
 python screenshot_widget.py
 ```
 
-A small window with a green **+1** button appears. Click it, or press the `` ` `` key then `1` quickly (as a chord) to:
+A small window with a green **+1** button appears. Click it, or press **Ctrl+`** while the widget window is focused, to:
 1. Hide the widget
 2. Capture fullscreen
 3. Copy to clipboard
@@ -41,9 +42,10 @@ Press **Esc** to close the widget.
 
 ## 1. Requirements
 
-### For GUI Widget (Windows)
+### For GUI Widget & Global Hotkey (Windows)
 - Python 3.8+
 - **Pillow** (`pip install Pillow`)
+- **keyboard** (`pip install keyboard`)
 
 ### For GUI Widget (Linux)
 - Python 3.8+
@@ -254,8 +256,9 @@ See `~/.screenshot_automation.log` for details in failure cases.
 
 ## 9. Features Implemented
 
-- ✅ **GUI Widget** – Always-on-top `+1` button (Windows & Linux)
-- ✅ One-key screenshot capture (e.g. `Ctrl+1`)
+- ✅ **GUI Widget** – Always-on-top `+1` button (Windows & Linux), shortcut **Ctrl+`** while focused
+- ✅ **Windows global hotkey** – Background script with **Ctrl+`** anywhere
+- ✅ One-key screenshot capture on Linux (e.g. `Ctrl+1` bound to `/usr/local/bin/screenshot-automate`)
 - ✅ Automatic clipboard copy
 - ✅ Cross-platform support (Windows via Pillow, Linux via Flameshot)
 - ✅ Multi-distro support in installer (Ubuntu/Fedora/Arch)
@@ -265,4 +268,4 @@ See `~/.screenshot_automation.log` for details in failure cases.
 - ✅ Dependency verification
 - ✅ Desktop environment detection (for logging/diagnostics)
 
-**Click the `+1` button** or **press Ctrl+1** and your screenshot is instantly on the clipboard!
+On Windows, **click the `+1` button**, press **Ctrl+` with the widget focused**, or run the **global hotkey script** and press **Ctrl+` anywhere** – then just paste your screenshot.
